@@ -10,7 +10,7 @@ public class BeamWeapon : MonoBehaviour {
 	void Start () {
 
 
-		gameObject.GetComponent<Rigidbody2D> ().velocity.x = beamSpeed;
+		//gameObject.GetComponent<Rigidbody2D> ().velocity.x = beamSpeed;
 	
 	}
 	

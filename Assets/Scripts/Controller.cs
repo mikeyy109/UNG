@@ -9,6 +9,7 @@ public class Controller : MonoBehaviour {
 	public GameObject player;
 	public GameObject beamWeapon;
 	public float fireRate = 0.2f;
+	public float beamSpeed = 10f;
 	public Transform beamSpawn;
 
 	private float nextFire = 3f;
@@ -22,13 +23,12 @@ public class Controller : MonoBehaviour {
 
 	void Update(){
 
-		InvokeRepeating ("Fire", 0.0000001f, fireRate);
 	}
 
 	void Fire(){
-		Vector3 offSet = new Vector3 (0, 1, 0); polyphasic
-		GameObject lBeam = Instantiate(beamWeapon, transform.position + offSet, Quaternion.identity) as GameObject;
-		lBeam.rigidbody2D.velocity = new Vector3(0,beamSpeed,0);
+		Vector3 offSet = new Vector3 (0, 1, 0);
+		GameObject lBeam = Instantiate(beamWeapon, transform.position, transform.rotation) as GameObject;
+		lBeam.GetComponent<Rigidbody2D>().velocity = new Vector3(beamSpeed,0,0);
 	}
 	
 
@@ -58,6 +58,12 @@ public class Controller : MonoBehaviour {
 					Mathf.Clamp (gameObject.GetComponent<Rigidbody2D>().position.x, -10, 10),  //X
 					Mathf.Clamp (gameObject.GetComponent<Rigidbody2D>().position.y, -3.5f, 3.5f)	 //Y
 					);
+			if(Input.GetKeyDown(KeyCode.Space)){
+				InvokeRepeating ("Fire", 0.000001f, fireRate);
+			}
+			if(Input.GetKeyUp(KeyCode.Space)){
+				CancelInvoke("Fire");
+			}
 
 
 			break;
